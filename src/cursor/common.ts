@@ -20,7 +20,10 @@ import {
   type LoroNodeMapping,
   WEAK_NODE_TO_LORO_CONTAINER_MAPPING,
 } from "../lib";
-import { loroSyncPluginKey, type LoroSyncPluginState } from "../sync-plugin-key";
+import {
+  loroSyncPluginKey,
+  type LoroSyncPluginState,
+} from "../sync-plugin-key";
 
 export type CursorUser = { name: string; color: string };
 export type CursorPresenceState = {
@@ -46,7 +49,7 @@ export interface CursorPluginOptions {
 export const createCursorPlugin = (
   pluginKey: PluginKey<{ presenceUpdated: boolean }>,
   store: CursorPresenceStore,
-  options: CursorPluginOptions,
+  options: CursorPluginOptions
 ): Plugin<DecorationSet> => {
   const getSelection = options.getSelection || ((state) => state.selection);
   const createSelection =
@@ -64,16 +67,16 @@ export const createCursorPlugin = (
       cursor.classList.add("ProseMirror-loro-cursor");
       cursor.setAttribute(
         "style",
-        `border-color: ${cursorUserData?.user?.color ?? user.slice(0, 6)}`,
+        `border-color: ${cursorUserData?.user?.color ?? user.slice(0, 6)}`
       );
       const userDiv = document.createElement("div");
       userDiv.setAttribute(
         "style",
-        `background-color: ${cursorUserData?.user?.color ?? user.slice(0, 6)}`,
+        `background-color: ${cursorUserData?.user?.color ?? user.slice(0, 6)}`
       );
       userDiv.insertBefore(
         document.createTextNode(cursorUserData?.user?.name ?? user.slice(0, 6)),
-        null,
+        null
       );
       const nonbreakingSpace1 = document.createTextNode("\u2060");
       const nonbreakingSpace2 = document.createTextNode("\u2060");
@@ -91,7 +94,7 @@ export const createCursorPlugin = (
           store,
           plugin,
           createSelection,
-          createCursor,
+          createCursor
         );
       },
       apply(tr, prevState, _oldState, newState) {
@@ -107,7 +110,7 @@ export const createCursorPlugin = (
             store,
             plugin,
             createSelection,
-            createCursor,
+            createCursor
           );
         }
 
@@ -150,7 +153,7 @@ export const createCursorPlugin = (
           const { anchor, focus } = convertPmSelectionToCursors(
             pmRootNode,
             selection,
-            loroState,
+            loroState
           );
           if (
             current == null ||
@@ -194,7 +197,7 @@ function createDecorations(
   store: CursorPresenceStore,
   _plugin: Plugin<DecorationSet>,
   createSelection: (user: PeerID) => DecorationAttrs,
-  createCursor: (user: PeerID) => Element,
+  createCursor: (user: PeerID) => Element
 ): DecorationSet {
   const all = store.getAll();
   const d: Decoration[] = [];
@@ -218,21 +221,21 @@ function createDecorations(
     const [focus, focusCursorUpdate] = cursorToAbsolutePosition(
       cursor.focus,
       doc as LoroDocType,
-      loroState.mapping,
+      loroState.mapping
     );
     d.push(Decoration.widget(focus, createCursor(peer as PeerID)));
     if (!cursorEq(cursor.anchor, cursor.focus)) {
       const [anchor, anchorCursorUpdate] = cursorToAbsolutePosition(
         cursor.anchor,
         doc as LoroDocType,
-        loroState.mapping,
+        loroState.mapping
       );
       d.push(
         Decoration.inline(
           Math.min(anchor, focus),
           Math.max(anchor, focus),
-          createSelection(peer as PeerID),
-        ),
+          createSelection(peer as PeerID)
+        )
       );
       if (focusCursorUpdate || anchorCursorUpdate) {
         const existingLocalState = store.getLocal();
@@ -265,23 +268,23 @@ function createDecorations(
 export function convertPmSelectionToCursors(
   pmRootNode: Node,
   selection: Selection,
-  loroState: LoroSyncPluginState,
+  loroState: LoroSyncPluginState
 ) {
   const anchor = absolutePositionToCursor(
     pmRootNode,
     selection.anchor,
     loroState.doc as LoroDocType,
-    loroState.mapping,
+    loroState.mapping
   );
   const focus =
     selection.head == selection.anchor
       ? anchor
       : absolutePositionToCursor(
-        pmRootNode,
-        selection.head,
-        loroState.doc as LoroDocType,
-        loroState.mapping,
-      );
+          pmRootNode,
+          selection.head,
+          loroState.doc as LoroDocType,
+          loroState.mapping
+        );
   return { anchor, focus };
 }
 
@@ -295,7 +298,7 @@ function absolutePositionToCursor(
   pmRootNode: Node,
   anchor: number,
   doc: LoroDocType,
-  mapping: LoroNodeMapping,
+  mapping: LoroNodeMapping
 ): Cursor | undefined {
   const pos = pmRootNode.resolve(anchor);
   const nodeParent = pos.node(pos.depth);
@@ -345,7 +348,7 @@ function absolutePositionToCursor(
 export function cursorToAbsolutePosition(
   cursor: Cursor,
   doc: LoroDocType,
-  mapping: LoroNodeMapping,
+  mapping: LoroNodeMapping
 ): [number, Cursor | undefined] {
   const containerId = cursor.containerId();
   let index = -1;
@@ -404,7 +407,8 @@ export function cursorToAbsolutePosition(
       loroNode = loroNode.parent()?.parent() as LoroNode | undefined;
       index += 1;
     } else {
-      throw new Error("Unreachable code");
+      break;
+      //throw new Error("Unreachable code");
     }
   }
 

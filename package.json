@@ -3,13 +3,13 @@
   "version": "0.4.3",
   "description": "ProseMirror Binding for Loro",
   "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "exports": {
     "types": "./dist/index.d.ts",
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js"
   },
   "sideEffects": false,
   "scripts": {

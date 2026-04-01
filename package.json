@@ -18,7 +18,8 @@
     "build": "vite build",
     "test": "vitest run",
     "lint": "tsc --noEmit",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "prepare": "npm run build"
   },
   "homepage": "https://github.com/loro-dev/loro-prosemirror#readme",
   "repository": {

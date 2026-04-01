@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.3](https://github.com/loro-dev/loro-prosemirror/compare/v0.4.2...v0.4.3) (2026-02-19)
+
+
+### Bug Fixes
+
+* change module type to "module" ([#72](https://github.com/loro-dev/loro-prosemirror/issues/72)) ([050a9cc](https://github.com/loro-dev/loro-prosemirror/commit/050a9cc2e1912cdf9e43695feb3b1ee566547db1))
+
+## [0.4.2](https://github.com/loro-dev/loro-prosemirror/compare/v0.4.1...v0.4.2) (2025-11-30)
+
+
+### Bug Fixes
+
+* remove attributes in loro map ([#62](https://github.com/loro-dev/loro-prosemirror/issues/62)) ([1bc1e98](https://github.com/loro-dev/loro-prosemirror/commit/1bc1e980ebb7dad5b8ba0366e68952b420d4de1c))
+* update loro-crdt to v1.10.2 ([02bcc65](https://github.com/loro-dev/loro-prosemirror/commit/02bcc65a18a97ef060bbb00a76d66592ace530d8))
+
 ## [0.4.1](https://github.com/loro-dev/loro-prosemirror/compare/v0.4.0...v0.4.1) (2025-11-25)
 
 
